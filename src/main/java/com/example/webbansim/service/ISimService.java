@@ -14,7 +14,7 @@ public interface ISimService{
     SimDTO getSimById(Long id);
     SimDTO updateSim(Sim oldSim);
 
-    List<SimDTO> findByScope(FindSimReq sime);
+    List<SimDTO> findBySo(FindSimReq sime);
 
     SimDTO findByIdSim(Long id);
 

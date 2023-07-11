@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SimRepository extends JpaRepository<Sim,Integer> {
 //    List<Sim>findSim(String so, Double price, Integer type);
-    List<Sim>findBySoOrPriceOrIdType(String so, Double price, Integer type);
+    List<Sim>findBySoContainingOrIdNmOrPrice(String so, Double price, Integer type);
 
     Sim findByIdSim(Long id);
 }

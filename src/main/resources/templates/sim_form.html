@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
-  <title>BezKoder - Spring Boot Thymeleaf example</title>
+  <title>Form nhập/sửa Sim</title>
 
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
@@ -36,16 +36,28 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label" for="typeSim">Loại sim</label>
           <div class="col-sm-9">
-            <input type="text" th:field="*{idType}" class="form-control"
-                   id="typeSim" />
+<!--            <input type="text" th:field="*{idType}" class="form-control"-->
+<!--                   id="typeSim" />-->
+              <select th:field="*{idType}" class="form-control" id="typeSim">
+                  <option value=""> -- </option>
+                  <option th:each="loai_sim : ${listTypeSim}"
+                          th:value="${loai_sim.idType}"
+                          th:utext="${loai_sim.tenType}"/>
+              </select>
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-3 col-form-label" for="nha_mang">Nhà mạng</label>
           <div class="col-sm-9">
-            <input type="text" th:field="*{idNm}" class="form-control"
-                   id="nha_mang" />
+<!--            <input type="text" th:field="*{idNm}" class="form-control"-->
+<!--                   id="nha_mang" />-->
+            <select th:field="*{idNm}" class="form-control" id="nha_mang">
+              <option value=""> -- </option>
+              <option th:each="nha_mang : ${listNm}"
+                      th:value="${nha_mang.idNm}"
+                      th:utext="${nha_mang.tenNm}"/>
+            </select>
           </div>
         </div>
 

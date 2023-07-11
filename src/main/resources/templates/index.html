@@ -3,7 +3,7 @@
 <head>
   <title>User List</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <link type="text/css" rel="stylesheet" href="../static/bootstrap.min.css" th:href="@{bootstrap.min.css}"/>
+  <link type="text/css" rel="stylesheet" href="bootstrap.min.css" th:href="@{bootstrap.min.css}"/>
 </head>
 <body>
 <div class="col-3"></div>
@@ -11,25 +11,19 @@
   <h1>Manage User</h1>
   <table class="table table-active">
     <tr>
-      <th>ID</th>
-      <th>Số sim</th>
-      <th>Giá sim</th>
-      <th>Nhà mạng</th>
-      <th>Loại sim</th>
-      <th>Action</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Actions</th>
     </tr>
-    <tr th:each="sim : ${listSim}">
-      <td th:text="${sim.idSim}"></td>
-      <td th:text="${sim.so}"></td>
-      <td th:text="${sim.price}"></td>
-      <td th:text="${sim.idType}"></td>
-      <td th:text="${sim.idNm}"></td>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.name}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.phone}"></td>
       <td>
-        <a th:href="@{/edit?idSim={idSim}(idSim=${sim.idSim})}" class="btn btn-primary">Edit</a>
-        <a th:href="@{/delete?idSim={idSim}(idSim=${sim.idSim})}" class="btn btn-danger">Delete</a>
+        <a th:href="@{/edit?id={id}(id=${user.id})}" class="btn btn-primary">Edit</a>
+        <a th:href="@{/delete?id={id}(id=${user.id})}" class="btn btn-danger">Delete</a>
       </td>
-    </tr>
-
     </tr>
   </table>
   <a href="/add" class="btn btn-success">Add User</a>

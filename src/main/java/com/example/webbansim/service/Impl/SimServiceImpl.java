@@ -45,8 +45,8 @@ public class SimServiceImpl implements ISimService {
     }
 
     @Override
-    public List<SimDTO> findByScope(FindSimReq findSimReq) {
-        List<Sim> simList = simRepository.findBySoOrPriceOrIdType(findSimReq.getSo(), findSimReq.getPrice(), findSimReq.getIdType());
+    public List<SimDTO> findBySo(FindSimReq findSimReq) {
+        List<Sim> simList = simRepository.findBySoContainingOrIdNmOrPrice(findSimReq.getSo(), findSimReq.getPrice(), findSimReq.getIdType());
 //        List<Sim> simList = simRepository.findBySo(findSimReq.getSo());
         List<SimDTO>dtoList = new ArrayList<>();
         for(Sim tmp :simList){

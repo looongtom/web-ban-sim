@@ -1,26 +1,20 @@
-package com.example.webbansim.entity;
-
+package com.example.webbansim.model.dto.NhaMang;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
+@Data
 @Accessors(chain = true)
 @NoArgsConstructor
+@ToString
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-
-@Data
-@Entity
-@Table(name = "nhamang")
-public class NhaMang {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_nm")
+public class NhaMangDTO {
     private Integer idNm;
-    @Column(name = "ten_nm")
     private String tenNm;
 }

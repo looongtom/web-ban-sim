@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
-  <title>Web bán sim số 1 Việt Nam</title>
+  <title>Trang bán sim số 1 Việt Nam</title>
 
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
@@ -48,7 +48,8 @@
   </div>
 
   <div th:if="${listSim.size() > 0}">
-    <table class="table table-hover table-responsive-xl">
+<!--  <div >-->
+  <table class="table table-hover table-responsive-xl">
       <thead class="thead-light">
       <tr>
         <th scope="col">Id</th>
@@ -64,8 +65,8 @@
         <td th:text="${sim.idSim}"></td>
         <td th:text="${sim.so}"></td>
         <td th:text="${sim.price}"></td>
-        <td th:text="${sim.idNm}"></td>
-        <td th:text="${sim.idType}"></td>
+        <td th:text="${sim.tenNm}"></td>
+        <td th:text="${sim.tenType}"></td>
         <td>
           <a th:href="@{'/api/v1/admin/sim/edit/' + ${sim.idSim}}" title="Edit sim"
              class="fa-regular fa-pen-to-square icon-dark"></a>
@@ -78,7 +79,8 @@
     </table>
   </div>
 
-  <div class="" th:unless="${listSim.size() > 0}">
+    <div th:if="${listSim.size() <= 0}">
+<!--  <div >-->
     <span>No sim found!</span>
   </div>
 </div>
@@ -126,6 +128,7 @@
     });
   });
 </script>
+
 
 </body>
 
