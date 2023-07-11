@@ -11,10 +11,13 @@ public interface ISimService{
 
     List<SimDTO> getAllSim();
     SimDTO saveSim (SimDTO newSim);
-    SimDTO getSimById(Integer id);
+    SimDTO getSimById(Long id);
     SimDTO updateSim(Sim oldSim);
 
     List<SimDTO> findByScope(FindSimReq sime);
 
+    SimDTO findByIdSim(Long id);
+
     void deleteSimById(Long id);
+
 }

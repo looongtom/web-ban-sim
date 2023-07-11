@@ -8,4 +8,6 @@ public class CreateSimReq {
     private String so;
     private Double price;
     private Integer idType;
+    private Integer idNm;
+
 }

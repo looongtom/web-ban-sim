@@ -35,7 +35,7 @@ public class SimServiceImpl implements ISimService {
     }
 
     @Override
-    public SimDTO getSimById(Integer id) {
+    public SimDTO getSimById(Long id) {
         return null;
     }
 
@@ -46,13 +46,19 @@ public class SimServiceImpl implements ISimService {
 
     @Override
     public List<SimDTO> findByScope(FindSimReq findSimReq) {
-        List<Sim> simList = simRepository.findBySo(findSimReq.getSo());
+        List<Sim> simList = simRepository.findBySoOrPriceOrIdType(findSimReq.getSo(), findSimReq.getPrice(), findSimReq.getIdType());
 //        List<Sim> simList = simRepository.findBySo(findSimReq.getSo());
         List<SimDTO>dtoList = new ArrayList<>();
         for(Sim tmp :simList){
             dtoList.add(SimMapper.toSimDTO(tmp));
         }
         return  dtoList;
+    }
+
+    @Override
+    public SimDTO findByIdSim(Long id) {
+        Sim sim = simRepository.findByIdSim(id);
+        return SimMapper.toSimDTO(sim);
     }
 
     @Override

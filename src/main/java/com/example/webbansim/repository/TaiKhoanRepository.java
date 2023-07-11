@@ -8,5 +8,6 @@ import java.util.List;
 
 
 public interface TaiKhoanRepository extends JpaRepository<TaiKhoan,Integer> {
+    List<TaiKhoan>findByIdRole(Integer id);
     List<TaiKhoan> findByEmail(String email);
 }

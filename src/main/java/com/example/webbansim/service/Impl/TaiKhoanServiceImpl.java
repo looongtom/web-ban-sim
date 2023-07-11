@@ -21,11 +21,10 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService {
     private TaiKhoanRepository taiKhoanRepository;
 
     @Override
-    public List<TaiKhoanDTO> getListTaiKhoan() {
-        List<TaiKhoan>listTaiKhoan = taiKhoanRepository.findAll();
+    public List<TaiKhoanDTO> getListTaiKhoan(Integer id) {
+        List<TaiKhoan>listTaiKhoan = taiKhoanRepository.findByIdRole(id);
         List<TaiKhoanDTO>listDTO = new ArrayList<>();
         for(TaiKhoan tmp : listTaiKhoan){
-//            tmp.setPass();
             listDTO.add(TaiKhoanMapper.toTaiKhoanDTO(tmp));
         }
         return listDTO;

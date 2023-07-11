@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface ITaiKhoanService {
-    List<TaiKhoanDTO> getListTaiKhoan();
+    List<TaiKhoanDTO> getListTaiKhoan(Integer idTaiKhoan);
 
     TaiKhoanDTO findTaiKhoanByEmail(String email);
 

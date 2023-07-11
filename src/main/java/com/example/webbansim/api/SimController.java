@@ -5,14 +5,19 @@ import com.example.webbansim.model.request.Sim.CreateSimReq;
 import com.example.webbansim.model.request.Sim.FindSimReq;
 import com.example.webbansim.service.ISimService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/api/v1/admin/sim")
-@RestController
+@Controller
 public class SimController {
 
     @Autowired
@@ -20,9 +25,22 @@ public class SimController {
 
 
     @GetMapping("/getAllSim")
-    public ResponseEntity<?> getSim(){
-        List<SimDTO> simList = simService.getAllSim();
-        return ResponseEntity.ok(simList);
+    public String getSim(Model model, @Param("keyword") String keyword){
+        try{
+            List<SimDTO> dtoList = new ArrayList<>();
+            if (keyword == null){
+                simService.getAllSim().forEach(dtoList::add);
+            }else{
+                FindSimReq findSimReq = new FindSimReq();
+                findSimReq.setSo(keyword);
+                simService.findByScope(findSimReq).forEach(dtoList::add);
+                model.addAttribute("keyword",keyword);
+            }
+            model.addAttribute("listSim",dtoList);
+        }catch (Exception e){
+            model.addAttribute("message", e.getMessage());
+        }
+        return "sim_management";
     }
 
     @PostMapping("/addSim")
@@ -38,9 +56,71 @@ public class SimController {
         return ResponseEntity.status(HttpStatus.OK).body(simService.findByScope(findSimReq));
     }
 
-    @DeleteMapping("{idSim}")
-    public void deleteSim(@PathVariable("idSim") Long id){
-        simService.deleteSimById(id);
+    @GetMapping("/delete/{idSim}")
+    public String deleteSim(@PathVariable("idSim") Long id,
+                          Model model, RedirectAttributes redirectAttributes){
+        try{
+            simService.deleteSimById(id);
+            redirectAttributes.addFlashAttribute("message",
+                    "Sim  id = "+id+" has been deleted successfully!");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+        }
+        return "redirect:/api/v1/admin/sim/getAllSim";
+    }
+
+    @GetMapping("/addNew")
+    public String addNew(Model model){
+        SimDTO simDTO = new SimDTO();
+        model.addAttribute("sim",simDTO);
+        model.addAttribute("pageTitle", "Create new Sim");
+
+        return "sim_form";
+    }
+
+    @PostMapping("/save")
+    public String saveSim(SimDTO simDTO , RedirectAttributes redirectAttributes){
+        try {
+            simService.saveSim(simDTO);
+            redirectAttributes.addFlashAttribute("message","The sim has been saved successfully!");
+        }catch (Exception e){
+            redirectAttributes.addAttribute("message", e.getMessage());
+        }
+        return "redirect:/api/v1/admin/sim/getAllSim";
+    }
+
+    @GetMapping("/edit/{idSim}")
+    public String editTutorial(@PathVariable("idSim") Long id, Model model, RedirectAttributes redirectAttributes) {
+    try{
+        SimDTO simDTO = simService.findByIdSim(id);
+        model.addAttribute("sim",simDTO);
+        model.addAttribute("pageTitle", "Edit Tutorial (ID: " + id + ")");
+
+        return "sim_form";
+
+    }catch (Exception e){
+        redirectAttributes.addFlashAttribute("message", e.getMessage());
+    }
+        return "redirect:/api/v1/admin/sim/getAllSim";
+    }
+
+    @GetMapping("/searchSim")
+    public String searchSim(Model model, @Param("keyword") String keyword){
+        try{
+            List<SimDTO> dtoList = new ArrayList<>();
+            if (keyword == null){
+                simService.getAllSim().forEach(dtoList::add);
+            }else{
+                FindSimReq findSimReq = new FindSimReq();
+                findSimReq.setSo(keyword);
+                simService.findByScope(findSimReq).forEach(dtoList::add);
+                model.addAttribute("keyword",keyword);
+            }
+            model.addAttribute("listSim",dtoList);
+        }catch (Exception e){
+            model.addAttribute("message", e.getMessage());
+        }
+        return "sim_management";
     }
 
 }

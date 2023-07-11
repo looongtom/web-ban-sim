@@ -5,6 +5,7 @@ import com.example.webbansim.model.request.TaiKhoan.CreateTaiKhoanReq;
 import com.example.webbansim.model.request.TaiKhoan.FindTaiKhoanReq;
 import com.example.webbansim.model.request.TaiKhoan.UpdateTaiKhoanReq;
 import com.example.webbansim.service.ITaiKhoanService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +16,19 @@ import java.util.List;
 @RequestMapping("/api/v1/admin")
 @RestController
 public class TaiKhoanController {
-
+    private Integer idAdmin=1;
+    private Integer idUser=2;
     @Autowired
     public ITaiKhoanService taiKhoanService;
 
     @GetMapping("/getListAdmin")
+    public ResponseEntity<?> getListAdmin() {
+        List<TaiKhoanDTO> result = taiKhoanService.getListTaiKhoan(idAdmin);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+    @GetMapping("/getListUser")
     public ResponseEntity<?> getListUser() {
-        List<TaiKhoanDTO> result = taiKhoanService.getListTaiKhoan();
+        List<TaiKhoanDTO> result = taiKhoanService.getListTaiKhoan(idUser);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

@@ -8,7 +8,8 @@ public class SimMapper {
                 .setIdSim(sim.getIdSim())
                 .setSo(sim.getSo())
                 .setPrice(sim.getPrice())
-                .setIdType(sim.getIdType());
+                .setIdType(sim.getIdType())
+                .setIdNm(sim.getIdNm());
     }
 
     public static Sim toSim(SimDTO simDTO){
@@ -16,6 +17,7 @@ public class SimMapper {
                 .setIdSim(simDTO.getIdSim())
                 .setSo(simDTO.getSo())
                 .setPrice(simDTO.getPrice())
-                .setIdType(simDTO.getIdType());
+                .setIdType(simDTO.getIdType())
+                .setIdNm(simDTO.getIdNm());
     }
 }

@@ -25,6 +25,8 @@ public class Sim  {
     private Double price;
     @Column(name = "id_type")
     private Integer idType;
+    @Column(name = "id_nm")
+    private Integer idNm;
 
 
 }

@@ -10,7 +10,7 @@ public class TaiKhoanMapper {
                 .setIdUser(admin.getId())
                 .setUsername(admin.getUserName())
                 .setPhone(admin.getPhone())
-                .setPass(BCrypt.hashpw(admin.getPass(), BCrypt.gensalt(12)))
+                .setPass(admin.getPass())
                 .setEmail(admin.getEmail())
                 .setIdRole(admin.getIdRole());
     }
@@ -25,14 +25,4 @@ public class TaiKhoanMapper {
                 .setIdRole(taiKhoanDTO.getIdRole());
     }
 
-    public static TaiKhoan toTaiKhoanAdmin (CreateTaiKhoanReq req){
-        TaiKhoan admin = new TaiKhoan();
-        admin.setUserName(req.getUsername());
-        admin.setPhone(req.getPhone());
-        admin.setEmail(req.getEmail());
-
-        String hash = BCrypt.hashpw(req.getPass(), BCrypt.gensalt(12));
-        admin.setPass(hash);
-        return admin;
-    }
 }
