@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 public class LoaiSim {
     @Id
     @Column(name = "id_type")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idType;
     @Column(name = "ten_type")
     private String tenType;

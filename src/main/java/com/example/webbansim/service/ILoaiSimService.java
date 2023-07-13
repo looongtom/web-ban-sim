@@ -8,4 +8,10 @@ public interface ILoaiSimService {
     LoaiSimDTO findById(Integer id);
 
     List<LoaiSimDTO> getListTypeSim();
+
+    List<LoaiSimDTO>getAllLoai();
+
+    List<LoaiSimDTO> findByTen(String tenLoai);
+
+    LoaiSimDTO saveType(LoaiSimDTO loaiSimDTO);
 }

@@ -8,15 +8,51 @@
     </button>
     <div class="collapse navbar-collapse" id="topNavbar">
       <ul class="navbar-nav">
+
+        <div class="btn-group">
+          <a th:href="@{/api/v1/admin/sim/getAllSim}">
+            <button type="button" class="btn btn-info" >Sim</button>
+          </a>
+          <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" th:href="@{/api/v1/admin/sim/addNew}">Add new Sim</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <a th:href="@{/api/v1/admin/sim/type/getAllType}">
+            <button type="button" class="btn btn-info" >Loại sim</button>
+          </a>
+          <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" th:href="@{/api/v1/admin/sim/type/addNewType}">Add new Loại sim</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </div>
+
+
+
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" th:href="@{/api/v1/admin/sim/getAllSim}">Sim</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" th:href="@{/api/v1/admin/sim/addNew}">Add new sim</a>-->
+<!--        </li>-->
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/api/v1/admin/sim/getAllSim}">Sim</a>
+          <a class="btn btn-outline-info" aria-current="page" th:href="@{/logout}">Logout</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/api/v1/admin/sim/addNew}">Add new sim</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
-        </li>
+
       </ul>
     </div>
   </nav>

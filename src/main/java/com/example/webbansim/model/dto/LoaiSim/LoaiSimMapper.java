@@ -8,4 +8,10 @@ public class LoaiSimMapper {
                 .setIdType(loaiSim.getIdType())
                 .setTenType(loaiSim.getTenType());
     }
+
+    public static LoaiSim toLoaiSim(LoaiSimDTO loaiSimDTO){
+        return new LoaiSim()
+                .setIdType(loaiSimDTO.getIdType())
+                .setTenType(loaiSimDTO.getTenType());
+    }
 }

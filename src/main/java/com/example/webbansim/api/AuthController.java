@@ -17,7 +17,7 @@ public class AuthController {
 
     private final RegistrationService registrationService;
 
-    @GetMapping("/index")
+    @GetMapping()
     public String home(){
         return "index";
     }
@@ -61,7 +61,8 @@ public class AuthController {
     }
 
     @GetMapping("/register/confirm")
-    public String confirm( @RequestParam("token") String token){
-        return registrationService.confirmedToken(token);
+    public String confirm( @RequestParam("token") String token,Model model){
+         registrationService.confirmedToken(token);
+        return "redirect:/api/v1/admin/sim/getAllSim";
     }
 }

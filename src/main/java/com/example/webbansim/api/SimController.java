@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequestMapping("/api/v1/admin/sim")
 @Controller
@@ -72,7 +71,7 @@ public class SimController {
         }catch (Exception e){
             model.addAttribute("message", e.getMessage());
         }
-        return "sim_management";
+        return "Sim/sim_management";
     }
 
     @PostMapping("/addSim")
@@ -113,7 +112,7 @@ public class SimController {
         List<LoaiSimDTO> loaiSimDTOList = iLoaiSimService.getListTypeSim();
         model.addAttribute("listTypeSim",loaiSimDTOList);
 
-        return "sim_form";
+        return "Sim/sim_form";
     }
 
     @PostMapping("/save")
@@ -140,7 +139,7 @@ public class SimController {
         List<LoaiSimDTO> loaiSimDTOList = iLoaiSimService.getListTypeSim();
         model.addAttribute("listTypeSim",loaiSimDTOList);
 
-        return "sim_form";
+        return "Sim/sim_form";
 
     }catch (Exception e){
         redirectAttributes.addFlashAttribute("message", e.getMessage());
@@ -164,7 +163,7 @@ public class SimController {
         }catch (Exception e){
             model.addAttribute("message", e.getMessage());
         }
-        return "sim_management";
+        return "Sim/sim_management";
     }
 
 }

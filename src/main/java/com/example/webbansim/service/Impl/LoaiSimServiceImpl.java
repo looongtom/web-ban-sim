@@ -35,4 +35,30 @@ public class LoaiSimServiceImpl implements ILoaiSimService {
         }
         return  loaiSimDTOList;
     }
+
+    @Override
+    public List<LoaiSimDTO> getAllLoai() {
+        List<LoaiSim> loaiSimList = loaiSimRepository.findAll();
+        List<LoaiSimDTO> loaiSimDTOList = new ArrayList<>();
+        for(LoaiSim loaiSim :loaiSimList){
+            loaiSimDTOList.add(LoaiSimMapper.toLoaiSimDTO(loaiSim));
+        }
+        return loaiSimDTOList;
+    }
+
+    @Override
+    public List<LoaiSimDTO> findByTen(String tenLoai) {
+        List<LoaiSim> loaiSimList = loaiSimRepository.findByTenTypeContainsIgnoreCase(tenLoai);
+        List<LoaiSimDTO> loaiSimDTOList = new ArrayList<>();
+        for(LoaiSim loaiSim : loaiSimList){
+            loaiSimDTOList.add(LoaiSimMapper.toLoaiSimDTO(loaiSim));
+        }
+        return loaiSimDTOList;
+    }
+
+    @Override
+    public LoaiSimDTO saveType(LoaiSimDTO loaiSimDTO) {
+        loaiSimRepository.save(LoaiSimMapper.toLoaiSim(loaiSimDTO));
+        return  loaiSimDTO;
+    }
 }
