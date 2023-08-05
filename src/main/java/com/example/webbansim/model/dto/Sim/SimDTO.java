@@ -33,7 +33,7 @@ public class SimDTO {
 
     public void setPriceFromSim(Double priceDouble) {
 
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.0 đ");
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0 đ");
         String formattedValue = decimalFormat.format(priceDouble);
 
         this.price=formattedValue;

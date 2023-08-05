@@ -27,12 +27,11 @@ public class WebSecurityConfig {
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .anyRequest().authenticated()
-//                                .requestMatchers("/api/v1/admin/sim/**").hasRole("USER")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/api/v1/admin/sim/getAllSim")
+                                .defaultSuccessUrl("/")
                                 .permitAll()
                 ).logout(
                         logout -> logout
