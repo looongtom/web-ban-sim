@@ -9,6 +9,7 @@ import com.example.webbansim.service.ILoaiSimService;
 import com.example.webbansim.service.INhaMangService;
 import com.example.webbansim.service.ISimService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -165,5 +166,34 @@ public class SimController {
         }
         return "Sim/sim_management";
     }
+
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated( Model model,@PathVariable(value = "pageNo" )int pageNo,@Param("keyword") String keyword){
+        int pageSize=5;
+
+        Page<SimDTO> page=simService.findPaginated(pageNo,pageSize,keyword);
+        List<SimDTO> dtoList=page.getContent();
+
+        for(SimDTO tmp:dtoList){
+            //set tên cho nhà mạng
+            String tenNhaMang = iNhaMangService.findById(tmp.getIdNm()).getTenNm();
+            tmp.setTenNm(tenNhaMang);
+            //set tên cho loại sim
+            String tenLoaiSim = iLoaiSimService.findById(tmp.getIdType()).getTenType();
+            tmp.setTenType(tenLoaiSim);
+
+        }
+
+        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPage",page.getTotalPages());
+        model.addAttribute("totalItems",page.getTotalElements());
+        model.addAttribute("keyword",keyword);
+
+        model.addAttribute("listSim",dtoList);
+
+        return "Sim/sim_paging";
+    }
+
+
 
 }

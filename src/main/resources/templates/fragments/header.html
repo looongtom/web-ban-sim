@@ -2,7 +2,7 @@
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" th:href="@{/api/v1/admin/sim/getAllSim}">
+    <a class="navbar-brand" th:href="@{'/api/v1/admin/sim/page/' +${1}}">
       QUẢN LÝ SIM
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
@@ -12,7 +12,7 @@
       <ul class="navbar-nav">
 
         <div class="btn-group mr-2">
-          <a th:href="@{/api/v1/admin/sim/getAllSim}">
+          <a th:href="@{'/api/v1/admin/sim/page/' +${1}}">
             <button type="button" class="btn btn-info" >Sim</button>
           </a>
           <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

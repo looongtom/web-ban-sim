@@ -7,10 +7,15 @@ import com.example.webbansim.model.request.Sim.FindSimReq;
 import com.example.webbansim.repository.SimRepository;
 import com.example.webbansim.service.ISimService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 @Component
 public class SimServiceImpl implements ISimService {
@@ -64,5 +69,28 @@ public class SimServiceImpl implements ISimService {
     @Override
     public void deleteSimById(Long id) {
         simRepository.deleteById(Math.toIntExact(id));
+    }
+
+    @Override
+    public Page<SimDTO> findPaginated(int pageNo, int pageSize,String keyword) {
+        Pageable pageable = PageRequest.of(pageNo-1,pageSize);
+        Page<Sim> simDTOList=null;
+        if(keyword == null || keyword.equals("null")){
+            keyword="";
+        }
+        simDTOList= simRepository.
+                findBySoContaining(pageable,keyword);
+
+
+
+//                findAll(pageable);
+        Page<SimDTO> dtoPage = simDTOList.map(new Function<Sim, SimDTO>() {
+            @Override
+            public SimDTO apply(Sim sim) {
+                return SimMapper.toSimDTO(sim);
+            }
+        });
+
+        return dtoPage;
     }
 }
