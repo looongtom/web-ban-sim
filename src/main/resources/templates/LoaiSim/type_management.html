@@ -62,10 +62,10 @@
                 <td th:text="${type.idType}"></td>
                 <td th:text="${type.tenType}"></td>
                 <td>
-                    <a th:href="@{'/api/v1/admin/sim/edit/' + ${type.idType}}" title="Edit sim"
+                    <a th:href="@{'/api/v1/admin/sim/type/edit/' + ${type.idType}}" title="Edit sim"
                        class="fa-regular fa-pen-to-square icon-dark"></a>
 
-                    <a th:href="@{'/api/v1/admin/sim/delete/' + ${type.idType}}"  th:tenType="${type.tenType}" id="btnDelete"
+                    <a th:href="@{'/api/v1/admin/sim/type/delete/' + ${type.idType}}"  th:tenType="${type.tenType}" id="btnDelete"
                        title="Delete this sim" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
                 </td>
             </tr>

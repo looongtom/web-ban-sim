@@ -124,7 +124,7 @@ public class SimController {
         }catch (Exception e){
             redirectAttributes.addAttribute("message", e.getMessage());
         }
-        return "redirect:/api/v1/admin/sim/getAllSim";
+        return "redirect:/api/v1/admin/sim/page/1";
     }
 
     @GetMapping("/edit/{idSim}")
@@ -132,7 +132,7 @@ public class SimController {
     try{
         SimDTO simDTO = simService.findByIdSim(id);
         model.addAttribute("sim",simDTO);
-        model.addAttribute("pageTitle", "Edit Tutorial (ID: " + id + ")");
+        model.addAttribute("pageTitle", "Edit Sim (ID: " + id + ")");
 
         List<NhaMangDTO> nhaMangtoList = iNhaMangService.getListNm();
         model.addAttribute("listNm",nhaMangtoList);
@@ -145,7 +145,7 @@ public class SimController {
     }catch (Exception e){
         redirectAttributes.addFlashAttribute("message", e.getMessage());
     }
-        return "redirect:/api/v1/admin/sim/getAllSim";
+        return "redirect:/api/v1/admin/sim/page/1";
     }
 
     @GetMapping("/searchSim")

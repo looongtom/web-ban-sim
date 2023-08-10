@@ -19,7 +19,7 @@
   <h2 class="text-center">[[${pageTitle}]]</h2>
 
   <div class="my-3">
-    <form th:action="@{/api/v1/admin/sim/save}" method="post" enctype="multipart/form-data" th:object="${sim}"
+    <form id="myForm" th:action="@{/api/v1/admin/sim/save}" method="post" enctype="multipart/form-data" th:object="${sim}"
           style="max-width: 550px; margin: 0 auto">
 
       <input type="hidden" th:field="*{idSim}" />
@@ -64,14 +64,14 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label" for="price_sim">Giá sim</label>
           <div class="col-sm-9">
-            <input type="number" step="1000" th:field="*{price}" required min="0"
+            <input type="text" step="1000" th:field="*{price}" required min="0"
                    class="form-control" id="price_sim" th:placeholder="${sim.price}" />
 
           </div>
         </div>
 
         <div class="text-center">
-          <input type="submit" value="Save" class="btn btn-primary btn-sm mr-2" />
+          <input type="submit" onclick="convertAndSubmit()" value="Save" class="btn btn-primary btn-sm mr-2" />
           <input type="button" value="Cancel" id="btnCancel" class="btn btn-secondary btn-sm" />
         </div>
       </div>
@@ -84,9 +84,22 @@
 <script type="text/javascript">
   $(document).ready(function () {
     $("#btnCancel").on("click", function () {
-      window.location = "[[@{/api/v1/admin/sim/getAllSim/page/1}]]";
+      window.location = "[[@{/api/v1/admin/sim/page/1}]]";
     });
   });
+</script>
+
+<script>
+    function convertAndSubmit() {
+        const inputElement = document.getElementById("price_sim");
+        const inputValue = inputElement.value;
+        const numericValue = inputValue.replace(/[,\.]/g, '');
+        const valueWithoutCurrency = numericValue.replace(' đ', '');
+        const convertedNumber = parseFloat(valueWithoutCurrency);
+        inputElement.value = convertedNumber;
+        const form = document.getElementById("myForm");
+        form.submit();
+    }
 </script>
 
 </body>

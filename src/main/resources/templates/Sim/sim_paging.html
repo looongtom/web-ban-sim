@@ -86,31 +86,6 @@
     </div>
 
     <div th:if="${totalPage >1}">
-        <!--        <div class="row">-->
-        <!--            <div class="col-sm-2">-->
-        <!--                Total rows: [[${totalItems}]]-->
-        <!--            </div>-->
-
-        <!--            <div class="col-sm-1">-->
-        <!--              <span th:each="i: ${#numbers.sequence(1,totalPage)}">-->
-        <!--                <a th:if="${currentPage !=i}" th:href="@{'/api/v1/admin/sim/page/' +${i} +'?keyword=' +${keyword} }"> [[${i}]] </a>-->
-        <!--                <span th:unless="${currentPage != i}"> [[${i}]] </span> &nbsp;&nbsp;-->
-        <!--              </span>-->
-        <!--            </div>-->
-
-        <!--            <div class="col-sm-1">-->
-        <!--                <a th:if="${currentPage < totalPage}"-->
-        <!--                   th:href="@{'/api/v1/admin/sim/page/' +${currentPage +1} +'?keyword=' +${keyword} }">Next</a>-->
-        <!--                <span th:unless="${currentPage < totalPage}">Next</span>-->
-        <!--            </div>-->
-
-        <!--            <div class="col-sm-1">-->
-        <!--                <a th:if="${currentPage < totalPage}"-->
-        <!--                   th:href="@{'/api/v1/admin/sim/page/' +${totalPage} +'?keyword=' +${keyword} }">Last</a>-->
-        <!--                <span th:unless="${currentPage < totalPage}">Last</span>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item" >

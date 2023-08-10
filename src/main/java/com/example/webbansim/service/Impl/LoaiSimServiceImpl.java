@@ -6,10 +6,14 @@ import com.example.webbansim.model.dto.LoaiSim.LoaiSimMapper;
 import com.example.webbansim.repository.LoaiSimRepository;
 import com.example.webbansim.service.ILoaiSimService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 @Component
 public class LoaiSimServiceImpl implements ILoaiSimService {
@@ -61,4 +65,28 @@ public class LoaiSimServiceImpl implements ILoaiSimService {
         loaiSimRepository.save(LoaiSimMapper.toLoaiSim(loaiSimDTO));
         return  loaiSimDTO;
     }
+
+    @Override
+    public Page<LoaiSimDTO> findPaginated(int pageNo, int pageSize, String keyword) {
+        Pageable pageable = PageRequest.of(pageNo-1,pageSize);
+        Page<LoaiSim>  loaiSimList=null;
+        if(keyword==null || keyword.equals("null")) keyword="";
+        loaiSimList=loaiSimRepository.findByTenTypeContainsIgnoreCaseOrderByIdType(pageable,keyword);
+
+        Page<LoaiSimDTO> dtoPage=loaiSimList.map(new Function<LoaiSim, LoaiSimDTO>() {
+            @Override
+            public LoaiSimDTO apply(LoaiSim loaiSim) {
+                return LoaiSimMapper.toLoaiSimDTO(loaiSim);
+            }
+        });
+        return dtoPage;
+    }
+
+    @Override
+    public void deletedTypeById(Integer id) {
+        System.out.println(id);
+        loaiSimRepository.deleteById(id);
+    }
+
+
 }
