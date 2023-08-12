@@ -20,8 +20,9 @@ public class ImageUploadController {
     @RequestMapping(value = "getimage/{photo}",method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<ByteArrayResource> getImage(@PathVariable("photo") String photo){
-        if(!photo.equals("") || photo!=null){
+
             try{
+                if(photo.equals("") || photo==null ||photo.isEmpty() || photo.equals("null")) photo="default-avatar.png";
                 Path fileName = Paths.get("uploads",photo);
                 byte[] buffer = Files.readAllBytes(fileName);
                 ByteArrayResource byteArrayResource = new ByteArrayResource(buffer);
@@ -32,7 +33,7 @@ public class ImageUploadController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-        return ResponseEntity.badRequest().build();
+
+//        return ResponseEntity.badRequest().build();
     }
 }

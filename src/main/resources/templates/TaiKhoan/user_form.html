@@ -92,12 +92,11 @@
   </div>
 </div>
 
-<script type="text/javascript">
-  $(document).ready(function () {
-    $("#btnCancel").on("click", function () {
-      window.location = "[[@{/api/v1/admin/sim/page/1}]]";
-    });
-  });
+
+
+<script>
+  document.getElementById("btnCancel").addEventListener("click", function() {
+    window.location = "[[@{/api/v1/admin/sim/page/1}]]";  });
 </script>
 
 
