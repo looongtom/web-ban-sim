@@ -1,10 +1,13 @@
 package com.example.webbansim.api;
 
+import com.example.webbansim.entity.AppUser;
+import com.example.webbansim.model.dto.AppUser.AppUserDTO;
 import com.example.webbansim.model.dto.TaiKhoan.TaiKhoanDTO;
 import com.example.webbansim.model.request.TaiKhoan.CreateTaiKhoanReq;
 import com.example.webbansim.model.request.TaiKhoan.FindTaiKhoanReq;
 import com.example.webbansim.model.request.TaiKhoan.UpdateTaiKhoanReq;
 import com.example.webbansim.service.ITaiKhoanService;
+import io.swagger.models.Model;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ public class TaiKhoanController {
     private Integer idUser=2;
     @Autowired
     public ITaiKhoanService taiKhoanService;
+
 
     @GetMapping("/getListAdmin")
     public ResponseEntity<?> getListAdmin() {
@@ -56,5 +60,7 @@ public class TaiKhoanController {
     public ResponseEntity<?> findUser(@RequestBody FindTaiKhoanReq findTaiKhoanReq){
         return ResponseEntity.status(HttpStatus.OK).body(taiKhoanService.findUser(findTaiKhoanReq));
     }
+
+
 
 }

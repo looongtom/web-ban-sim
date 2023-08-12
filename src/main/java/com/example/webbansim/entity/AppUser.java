@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Data
+@Accessors(chain = true)
+
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
@@ -36,6 +39,8 @@ public class AppUser implements UserDetails {
     private AppUserRole appUserRole;
     private Boolean locked;
     private Boolean enabled;
+
+    private String photo;
 
     public AppUser(String firstName,
                    String lastName,
@@ -64,7 +69,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return firstName;
+        return email;
     }
 
     public String getFirstName() {

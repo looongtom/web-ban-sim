@@ -63,6 +63,6 @@ public class AuthController {
     @GetMapping("/register/confirm")
     public String confirm( @RequestParam("token") String token,Model model){
          registrationService.confirmedToken(token);
-        return "redirect:/api/v1/admin/sim/getAllSim";
+        return "redirect:/api/v1/admin/sim/page/1";
     }
 }

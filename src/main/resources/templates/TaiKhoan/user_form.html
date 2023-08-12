@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Registration and Login System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" th:fragment="header">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/}">Edit user</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+<br />
+<br />
+<br />
+<div class="container">
+  <div class="row col-md-8 offset-md-2">
+    <div class="card">
+      <div th:if="${param.success}">
+        <div class="alert alert-info">You've successfully registered
+          to our app!</div>
+      </div>
+
+      <div class="card-header">
+        <h2 class="text-center">[[${pageTitle}]]</h2>
+      </div>
+
+      <div class="my-3">
+        <form id="myForm" th:action="@{/api/v1/admin/user/save}" method="post" enctype="multipart/form-data" th:object="${user}"
+              style="max-width: 550px; margin: 0 auto">
+
+          <input type="hidden" th:field="*{idAppUser}" />
+
+          <div class="p-3">
+
+            <p align="center">
+              <img class="img-fluid" alt="Responsive image" th:src="@{'http://localhost:8080/getimage/'+${user.photo}}"
+              ></p>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="email">Email</label>
+              <div class="col-sm-9">
+                <input type="text" th:field="*{email}"  class="form-control"
+                       id="email" />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="firstName">First name</label>
+              <div class="col-sm-9">
+                <input type="text" th:field="*{firstName}"  class="form-control"
+                       id="firstName" />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="lastName">Last name</label>
+              <div class="col-sm-9">
+                <input type="text" th:field="*{lastName}"  class="form-control"
+                       id="lastName" />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="photo">Photo</label>
+              <div class="col-sm-9">
+<!--                <input type="file" th:field="*{photo}"  class="form-control"-->
+<!--                       id="photo" placeholder="Enter photo"/>-->
+                <input type="file"  class="form-control" id="photo" name="photo" accept="image/*" required placeholder="Enter photo"/><br><br>
+
+              </div>
+            </div>
+
+
+            <div class="text-center">
+              <input type="submit"  value="Save" class="btn btn-primary btn-sm mr-2" />
+              <input type="button" value="Cancel" id="btnCancel" class="btn btn-secondary btn-sm" />
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#btnCancel").on("click", function () {
+      window.location = "[[@{/api/v1/admin/sim/page/1}]]";
+    });
+  });
+</script>
+
+
+
+</body>
+</html>
