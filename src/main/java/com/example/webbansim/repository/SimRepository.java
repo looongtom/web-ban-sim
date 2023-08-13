@@ -15,4 +15,26 @@ public interface SimRepository extends JpaRepository<Sim,Integer> {
 
     Page<Sim> findBySoContaining(Pageable pageable,String so);
 
+    Page<Sim> findBySoContainingOrderByIdSimAsc(Pageable pageable,String so);
+
+    Page<Sim> findBySoContainingOrderByPriceAsc(Pageable pageable,String so);
+
+    Page<Sim> findBySoContainingOrderByIdNmAsc(Pageable pageable,String so);
+
+    Page<Sim> findBySoContainingOrderByIdTypeAsc(Pageable pageable,String so);
+
+    Page<Sim> findBySoContainingOrderBySoAsc(Pageable pageable,String so);
+
+
+    Page<Sim> findBySoContainingOrderByIdSimDesc(Pageable pageable,String so);
+
+    Page<Sim> findBySoContainingOrderByPriceDesc(Pageable pageable,String so);
+
+    Page<Sim> findBySoContainingOrderByIdNmDesc(Pageable pageable,String so);
+
+    Page<Sim> findBySoContainingOrderByIdTypeDesc(Pageable pageable,String so);
+
+    Page<Sim> findBySoContainingOrderBySoDesc(Pageable pageable,String so);
+
+
 }

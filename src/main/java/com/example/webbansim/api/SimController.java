@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/api/v1/admin/sim")
 @Controller
@@ -124,7 +126,7 @@ public class SimController {
         }catch (Exception e){
             redirectAttributes.addAttribute("message", e.getMessage());
         }
-        return "redirect:/api/v1/admin/sim/page/1";
+        return "redirect:/api/v1/admin/sim/page/1/size/5";
     }
 
     @GetMapping("/edit/{idSim}")
@@ -145,7 +147,7 @@ public class SimController {
     }catch (Exception e){
         redirectAttributes.addFlashAttribute("message", e.getMessage());
     }
-        return "redirect:/api/v1/admin/sim/page/1";
+        return "redirect:/api/v1/admin/sim/page/1/size/5";
     }
 
     @GetMapping("/searchSim")
@@ -167,11 +169,18 @@ public class SimController {
         return "Sim/sim_management";
     }
 
-    @GetMapping("/page/{pageNo}")
-    public String findPaginated( Model model,@PathVariable(value = "pageNo" )int pageNo,@Param("keyword") String keyword){
-        int pageSize=5;
+    @GetMapping("/page/{pageNo}/size/{pageSize}")
+    public String findPaginated( Model model,@PathVariable(value = "pageNo" )int pageNo,@PathVariable(value="pageSize") int pageSize,
+                                 @RequestParam(defaultValue = "") String keyword,
+                                 @RequestParam(defaultValue = "0") String sort,
+                                 @RequestParam(defaultValue = "asc") String order){
+        Integer sortColumn = Integer.parseInt(sort);
+        System.out.println("===========================");
+        System.out.println(sortColumn);
+        System.out.println(order);
+        System.out.println("===========================");
 
-        Page<SimDTO> page=simService.findPaginated(pageNo,pageSize,keyword);
+        Page<SimDTO> page=simService.findPaginated(pageNo,pageSize,keyword,sortColumn,order.toLowerCase());
         List<SimDTO> dtoList=page.getContent();
 
         for(SimDTO tmp:dtoList){
@@ -188,6 +197,9 @@ public class SimController {
         model.addAttribute("totalPage",page.getTotalPages());
         model.addAttribute("totalItems",page.getTotalElements());
         model.addAttribute("keyword",keyword);
+
+        model.addAttribute("order",order);
+
 
         model.addAttribute("listSim",dtoList);
 

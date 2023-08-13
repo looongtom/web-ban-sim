@@ -72,18 +72,67 @@ public class SimServiceImpl implements ISimService {
     }
 
     @Override
-    public Page<SimDTO> findPaginated(int pageNo, int pageSize,String keyword) {
+    public Page<SimDTO> findPaginated(int pageNo, int pageSize,String keyword,Integer sortColumn,String order) {
         Pageable pageable = PageRequest.of(pageNo-1,pageSize);
         Page<Sim> simDTOList=null;
+        if(sortColumn==null){
+            sortColumn=0;
+        }
         if(keyword == null || keyword.equals("null")){
             keyword="";
         }
-        simDTOList= simRepository.
-                findBySoContaining(pageable,keyword);
+        if(order==null || order.equals("null") || order.isEmpty()){
+            order = "asc";
+        }
+        System.out.println(sortColumn);
+        System.out.println(order);
+
+        switch (order){
+            case "asc":
+                switch (sortColumn){
+                    case 1:
+                        simDTOList=simRepository.findBySoContainingOrderBySoAsc(pageable,keyword);
+                        break;
+                    case 2:
+                        simDTOList=simRepository.findBySoContainingOrderByPriceAsc(pageable,keyword);
+                        break;
+                    case 3:
+                        simDTOList=simRepository.findBySoContainingOrderByIdNmAsc(pageable,keyword);
+                        break;
+                    case 4:
+                        simDTOList=simRepository.findBySoContainingOrderByIdTypeAsc(pageable,keyword);
+                        break;
+                    default:
+                        simDTOList=simRepository.findBySoContainingOrderByIdSimAsc(pageable,keyword);
+                        break;
+                }
+                break;
+            default:
+                switch (sortColumn){
+                    case 1:
+                        simDTOList=simRepository.findBySoContainingOrderBySoDesc(pageable,keyword);
+                        break;
+                    case 2:
+                        simDTOList=simRepository.findBySoContainingOrderByPriceDesc(pageable,keyword);
+                        break;
+                    case 3:
+                        simDTOList=simRepository.findBySoContainingOrderByIdNmDesc(pageable,keyword);
+                        break;
+                    case 4:
+                        simDTOList=simRepository.findBySoContainingOrderByIdTypeDesc(pageable,keyword);
+                        break;
+                    default:
+                        simDTOList=simRepository.findBySoContainingOrderByIdSimDesc(pageable,keyword);
+                        break;
+                }
+                break;
+        }
+
+//        simDTOList= simRepository.
+//                findBySoContaining(pageable,keyword);
 
 
 
-//                findAll(pageable);
         Page<SimDTO> dtoPage = simDTOList.map(new Function<Sim, SimDTO>() {
             @Override
             public SimDTO apply(Sim sim) {

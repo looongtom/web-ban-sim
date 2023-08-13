@@ -21,6 +21,6 @@ public interface ISimService{
 
     void deleteSimById(Long id);
 
-    Page<SimDTO> findPaginated(int pageNo,int pageSize,String keyword);
+    Page<SimDTO> findPaginated(int pageNo,int pageSize,String keyword,Integer sortColumn,String order);
 
 }

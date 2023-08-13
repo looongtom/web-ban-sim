@@ -11,8 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
           integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
 </head>
 
 <body>
@@ -30,7 +33,7 @@
     </div>
 
     <div class="my-3">
-        <form th:action="@{'/api/v1/admin/sim/page/' +${1}}">
+        <form th:action="@{'/api/v1/admin/sim/page/' +${currentPage} +'/size/' +${pageSize}}">
             <div class="row d-flex">
                 <div class="col-md-6 mt-2">
                     <div class="search">
@@ -50,15 +53,36 @@
 
     <div th:if="${listSim.size() > 0}">
         <!--  <div >-->
-        <table class="table table-hover table-responsive-xl">
+        <table   id="dtBasicExample" class="table table-striped table-bordered table-sm">
             <thead class="thead-light">
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Số sim</th>
-                <th scope="col">Giá sim</th>
-                <th scope="col">Nhà mạng</th>
-                <th scope="col">Loại sim</th>
-                <th scope="col">Actions</th>
+                <th  scope="col" class="sortable" >Id
+                    <a id="sortButtonId" th:href="@{'/api/v1/admin/sim/page/' +${currentPage} +'/size/' +${pageSize} +'?keyword=' +${keyword}(sort=0,order=${order})}"  class="btn btn-xs btn-link p-0">
+                    <i class="fa fa-fw fa-sort"></i>
+                    </a>
+
+                </th>
+                <th scope="col">Số sim
+                    <a id="sortButtonSo" th:href="@{'/api/v1/admin/sim/page/' +${currentPage} +'/size/' +${pageSize}+'?keyword=' +${keyword}(sort=1,order=${order})}"  class="btn btn-xs btn-link p-0">
+                        <i class="fa fa-fw fa-sort"></i>
+                    </a>
+                </th>
+                <th scope="col">Giá sim
+                    <a id="sortButtonPrice" th:href="@{'/api/v1/admin/sim/page/' +${currentPage} +'/size/' +${pageSize}+'?keyword=' +${keyword}(sort=2,order=${order})}"  class="btn btn-xs btn-link p-0">
+                        <i class="fa fa-fw fa-sort"></i>
+                    </a>
+                </th>
+                <th scope="col">Nhà mạng
+                    <a id="sortButtonNm" th:href="@{'/api/v1/admin/sim/page/' +${currentPage} +'/size/' +${pageSize}+'?keyword=' +${keyword}(sort=3,order=${order})}"  class="btn btn-xs btn-link p-0">
+                        <i class="fa fa-fw fa-sort"></i>
+                    </a>
+                </th>
+                <th   scope="col">Loại sim
+                    <a id="sortButtonType" th:href="@{'/api/v1/admin/sim/page/' +${currentPage} +'/size/' +${pageSize}+'?keyword=' +${keyword}(sort=4,order=${order})}"  class="btn btn-xs btn-link p-0">
+                        <i class="fa fa-fw fa-sort"></i>
+                    </a>
+                </th>
+                <th   scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -90,12 +114,12 @@
             <ul class="pagination">
                 <li class="page-item" >
                     <a class="page-link" th:if="${currentPage ==totalPage}"
-                       th:href="@{'/api/v1/admin/sim/page/' +${1} +'?keyword=' +${keyword} }">First</a>
+                       th:href="@{'/api/v1/admin/sim/page/' +${1} +'/size/' +${pageSize}+'?keyword=' +${keyword} }">First</a>
                     <span th:unless="${currentPage < totalPage}"></span>
                 </li>
                 <li class="page-item" >
                     <a class="page-link" th:if="${currentPage >1}"
-                       th:href="@{'/api/v1/admin/sim/page/' +${currentPage -1} +'?keyword=' +${keyword} }">Previous</a>
+                       th:href="@{'/api/v1/admin/sim/page/' +${currentPage -1} +'/size/' +${pageSize} +'?keyword=' +${keyword} }">Previous</a>
                     <span th:unless="${currentPage < totalPage}"></span>
                 </li>
 
@@ -103,7 +127,7 @@
                 <li class="page-item">
                     <!--                    <a class="page-link" href="#">1</a>-->
                 <a class="page-link" th:if="${currentPage !=i}"
-                   th:href="@{'/api/v1/admin/sim/page/' +${i} +'?keyword=' +${keyword} }"> [[${i}]] </a>
+                   th:href="@{'/api/v1/admin/sim/page/' +${i}+ '/size/' +${pageSize} +'?keyword=' +${keyword} }"> [[${i}]] </a>
 
                 </li>
                                     <span th:unless="${currentPage != i}"> [[${i}]] </span> &nbsp;&nbsp;
@@ -117,12 +141,12 @@
 
                 <li class="page-item">
                     <a class="page-link" th:if="${currentPage < totalPage}"
-                       th:href="@{'/api/v1/admin/sim/page/' +${currentPage +1} +'?keyword=' +${keyword} }">Next</a>
+                       th:href="@{'/api/v1/admin/sim/page/' +${currentPage +1} +'/size/' +${pageSize} +'?keyword=' +${keyword} }">Next</a>
                     <span th:unless="${currentPage < totalPage}"></span>
                 </li>
                 <li class="page-item">
                     <a class="page-link" th:if="${currentPage < totalPage}"
-                       th:href="@{'/api/v1/admin/sim/page/' +${totalPage} +'?keyword=' +${keyword} }">Last</a>
+                       th:href="@{'/api/v1/admin/sim/page/' +${totalPage}+'/size/' +${pageSize} +'?keyword=' +${keyword} }">Last</a>
                     <span th:unless="${currentPage < totalPage}"></span>
                 </li>
 
@@ -177,6 +201,41 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
+
+<script src="/js/script.js"></script>
+
+<script th:inline="javascript">
+
+    function attachSortingHandler(sortButton, order) {
+        sortButton.addEventListener('click', () => {
+            const newOrder = order === 'asc' ? 'desc' : 'asc';
+            sortButton.href = sortButton.href.replace(/order=(asc|desc)/, `order=${newOrder}`);
+        });
+    }
+    /*<![CDATA[*/
+    const sortButtonId = document.getElementById('sortButtonId');
+    const sortButtonSo = document.getElementById('sortButtonSo');
+    const sortButtonPrice = document.getElementById('sortButtonPrice');
+    const sortButtonNm = document.getElementById('sortButtonNm');
+    const sortButtonType = document.getElementById('sortButtonType');
+
+
+    const order = [[${order}]] ; // Replace with actual Thymeleaf value
+
+    attachSortingHandler(sortButtonId, order);
+    attachSortingHandler(sortButtonSo, order);
+    attachSortingHandler(sortButtonPrice, order);
+    attachSortingHandler(sortButtonNm, order);
+    attachSortingHandler(sortButtonType, order);
+
+    /*]]>*/
+</script>
 
 </body>
 
